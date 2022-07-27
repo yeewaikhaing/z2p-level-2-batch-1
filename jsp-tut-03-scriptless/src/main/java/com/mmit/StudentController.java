@@ -8,7 +8,7 @@ import java.util.List;
 import com.mmit.entity.Batch;
 import com.mmit.entity.Student;
 
-import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletConfig; // jakarta.hibernate
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
