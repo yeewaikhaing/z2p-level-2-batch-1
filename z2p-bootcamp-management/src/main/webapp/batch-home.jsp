@@ -14,36 +14,30 @@
 	<!-- body -->
 	<div class="container">
 		<div class="row mt-3">
-			<h3 class="col-10">All Level</h3>
-			<c:url value="/add-level" var="add"></c:url>
-			<a href="${add}" class="btn btn-primary col">Add Level</a>
+			<h3 class="col-10">All Batch</h3>
+			<c:url value="/add-batch" var="add"></c:url>
+			<a href="${add}" class="btn btn-primary col">Add Batch</a>
 		</div>
 		<hr />
 		<table class="table">
 			<thead>
 				<tr>
 					<th>Id</th>
+					<th>Batch Name</th>
 					<th>Level Name</th>
-					<th>Duration(Month)</th>
-					<th>Fees</th>
+					<th>Start Date</th>
 					<th>Action</th>
 				</tr>
 			</thead>
 			<tbody>
-				<!-- level list -->
-				<c:forEach items="${levels}" var="lvl">
+				<!-- batch list -->
+				<c:forEach items="${batches}" var="b">
 					<tr>
-						<td>${lvl.id}</td>
-						<td>${lvl.name}</td>
-						<td>${lvl.duration}</td>
-						<td>${lvl.fees}</td>
-						<td>
-							<c:url value="/edit-level" var="edit">
-								<c:param name="id">${lvl.id}</c:param>
-							</c:url>
-							<a href="${edit}" class="btn btn-outline-success btn-sm">Edit</a>
-							<a href="" class="btn btn-outline-info btn-sm">Batch(0)</a>
-						</td>
+						<td>${b.id}</td>
+						<td>${b.name}</td>
+						<td>${b.level.name}</td>
+						<td>${b.startDate}</td>
+						<td></td>
 					</tr>
 				</c:forEach>
 			</tbody>
