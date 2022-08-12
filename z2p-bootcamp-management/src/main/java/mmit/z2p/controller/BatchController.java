@@ -1,6 +1,7 @@
 package mmit.z2p.controller;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -11,13 +12,15 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import mmit.z2p.model.entity.Batch;
 import mmit.z2p.model.service.BatchService;
+import mmit.z2p.model.service.LevelService;
 
-@WebServlet(urlPatterns = {"/batches"})
+@WebServlet(urlPatterns = {"/batches", "/add-batch", "/edit-batch"})
 public class BatchController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private BatchService batchService;
-    
+    private LevelService levelService;
     @Override
     public void init(ServletConfig config) throws ServletException {
     	super.init(config);
@@ -27,6 +30,7 @@ public class BatchController extends HttpServlet {
 			getServletContext().setAttribute("emf", emf_obj);
 		}
 		batchService = new BatchService(emf_obj.createEntityManager());
+		levelService = new LevelService(emf_obj.createEntityManager());
     }
     @Override
 	public void destroy() {
@@ -45,9 +49,21 @@ public class BatchController extends HttpServlet {
 		var action = request.getServletPath();
 		if("/batches".equals(action))
 			goHomePage(request, response);
+		else if("/add-batch".equals(action) || "/edit-batch".equals(action))
+			goAddPage(request, response);
 	}
 
 	
+	private void goAddPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		var id = request.getParameter("id");
+		var obj = id == null ? new Batch() : batchService.findById(Integer.parseInt(id));
+		var list = levelService.findAll();
+		request.setAttribute("title", "Batch");
+		request.setAttribute("batch", obj);
+		request.setAttribute("levels", list);
+		getServletContext().getRequestDispatcher("/batch-add.jsp").forward(request, response);
+		
+	}
 	private void goHomePage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		var list = batchService.findAll();
@@ -57,8 +73,19 @@ public class BatchController extends HttpServlet {
 	}
 
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)  {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException  {
 		
+		// retrieve data
+		var id = request.getParameter("batchId");
+		var batch = "0".equals(id) ? new Batch() : batchService.findById(Integer.parseInt(id));
+		batch.setLevel(levelService.findById(Integer.parseInt(request.getParameter("level"))));
+		batch.setName(request.getParameter("name"));
+		batch.setStartDate(LocalDate.parse(request.getParameter("startDate")));
+		
+		// save to db
+		batchService.save(batch);
+		// redirect page
+		response.sendRedirect(request.getContextPath().concat("/batches"));
 	}
 
 }

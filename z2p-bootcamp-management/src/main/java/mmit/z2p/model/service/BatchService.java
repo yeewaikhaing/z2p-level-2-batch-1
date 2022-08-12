@@ -18,4 +18,19 @@ public class BatchService {
 		
 		return em.createNamedQuery("getAllBatch", Batch.class).getResultList();
 	}
+
+	public Batch findById(int id) {
+		
+		return em.find(Batch.class, id);
+	}
+
+	public void save(Batch batch) {
+		em.getTransaction().begin();
+		if(batch.getId() == 0)
+			em.persist(batch);
+		else
+			em.merge(batch);
+		em.getTransaction().commit();
+		
+	}
 }

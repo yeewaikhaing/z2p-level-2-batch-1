@@ -14,35 +14,33 @@
 	<!-- body -->
 	<div class="container">
 		<div class="row mt-3">
-			<h3 class="col-10">All Batch</h3>
-			<c:url value="/add-batch" var="add"></c:url>
-			<a href="${add}" class="btn btn-primary col">Add Batch</a>
+			<h3 class="col-10">All Course</h3>
+			<c:url value="/add-course" var="add"></c:url>
+			<a href="${add}" class="btn btn-primary col">Add Course</a>
 		</div>
 		<hr />
 		<table class="table">
 			<thead>
 				<tr>
 					<th>Id</th>
-					<th>Batch Name</th>
+					<th>Course Name</th>
 					<th>Level Name</th>
-					<th>Start Date</th>
+					<th>Create At</th>
+					<th>Update At</th>
 					<th>Action</th>
 				</tr>
 			</thead>
 			<tbody>
-				<!-- batch list -->
-				<c:forEach items="${batches}" var="b" varStatus="i">
+				<!-- course list -->
+				<c:forEach items="${courses}" var="course" varStatus="i">
 					<tr>
 						<td>${i.count}</td>
-						<td>${b.name}</td>
-						<td>${b.level.name}</td>
-						<td>${b.startDate}</td>
+						<td>${course.name}</td>
+						<td>${course.level.name}</td>
+						<td>${course.created_at}</td>
+						<th>${course.updated_at}</th>
 						<td>
-							<c:url value="/edit-batch" var="edit">
-								<c:param name="id">${b.id}</c:param>
-							</c:url>
-							<a href="${edit}" class="btn btn-outline-success btn-sm">Edit</a>
-							<a href="" class="btn btn-outline-info btn-sm">Bootcamper(0)</a>
+							
 						</td>
 					</tr>
 				</c:forEach>
