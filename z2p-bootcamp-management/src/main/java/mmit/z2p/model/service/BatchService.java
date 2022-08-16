@@ -33,4 +33,11 @@ public class BatchService {
 		em.getTransaction().commit();
 		
 	}
+
+	public List<Batch> findByLevelId(int lvl_id) {
+	
+		return em.createNamedQuery("getBatchByLevelId", Batch.class)
+				.setParameter("levelId", lvl_id)
+				.getResultList();
+	}
 }

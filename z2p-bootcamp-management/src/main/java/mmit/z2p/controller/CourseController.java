@@ -15,7 +15,7 @@ import mmit.z2p.model.entity.Course;
 import mmit.z2p.model.service.CourseService;
 import mmit.z2p.model.service.LevelService;
 
-@WebServlet(urlPatterns = {"/courses", "/add-course"})
+@WebServlet(urlPatterns = {"/courses", "/add-course", "/edit-course", "/delete-course"})
 public class CourseController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private CourseService courseService;
@@ -48,14 +48,23 @@ public class CourseController extends HttpServlet {
 		var action = request.getServletPath();
 		if("/courses".equals(action))
 			goHomePage(request, response);
-		else if("/add-course".equals(action))
+		else if("/add-course".equals(action) || "/edit-course".equals(action))
 			goAddPage(request, response);
+		else if("/delete-course".equals(action))
+			deleteCourse(request, response);
 	}
 
 	
+	private void deleteCourse(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		var id = request.getParameter("id");
+		// delete from db
+		courseService.deleteById(Integer.parseInt(id));
+		// redirect
+		response.sendRedirect(request.getContextPath().concat("/courses"));
+	}
 	private void goAddPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		var obj = new Course();
+		var courseId = request.getParameter("id"); // if it comes from add course url, null
+		var obj = courseId == null ? new Course() : courseService.findById(Integer.parseInt(courseId));
 		var list = lvlSerice.findAll();
 		request.setAttribute("title", "Course");
 		request.setAttribute("course", obj);
@@ -65,8 +74,8 @@ public class CourseController extends HttpServlet {
 		
 	}
 	private void goHomePage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		var list = courseService.findAll();
+		var id = request.getParameter("levelId");
+		var list = (id == null) ? courseService.findAll() : courseService.findByLevelId(Integer.parseInt(id));
 		request.setAttribute("title", "Course");
 		request.setAttribute("courses", list);
 		getServletContext().getRequestDispatcher("/course-home.jsp").forward(request, response);
@@ -74,8 +83,18 @@ public class CourseController extends HttpServlet {
 	}
 
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)  {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException  {
 		var courseId = request.getParameter("courseId");
+		var course = "0".equals(courseId) ? new Course() : courseService.findById(Integer.parseInt(courseId));
+		
+		// get data from request
+		course.setContent(request.getParameter("outline"));
+		course.setName(request.getParameter("name"));
+		course.setLevel(lvlSerice.findById(Integer.parseInt(request.getParameter("level"))));
+		// save to db
+		courseService.save(course);
+		// redirect other route
+		response.sendRedirect(request.getContextPath().concat("/courses"));
 	}
 
 }

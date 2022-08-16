@@ -19,4 +19,34 @@ public class CourseService {
 		return em.createNamedQuery("getAllCourse", Course.class)
 				.getResultList();
 	}
+
+	public Course findById(int parseInt) {
+		
+		return em.find(Course.class, parseInt);
+	}
+
+	public void save(Course course) {
+		em.getTransaction().begin();
+		if(course.getId() == 0)
+			em.persist(course);
+		else
+			em.merge(course);
+		em.getTransaction().commit();
+		
+	}
+
+	public List<Course> findByLevelId(int lvlId) {
+		
+		return em.createNamedQuery("getCourseByLevelId", Course.class)
+				.setParameter("levelId", lvlId)
+				.getResultList();
+	}
+
+	public void deleteById(int id) {
+		em.getTransaction().begin();
+		var course = findById(id);
+		em.remove(course);
+		em.getTransaction().commit();
+		
+	}
 }

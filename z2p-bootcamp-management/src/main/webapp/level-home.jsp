@@ -42,7 +42,15 @@
 								<c:param name="id">${lvl.id}</c:param>
 							</c:url>
 							<a href="${edit}" class="btn btn-outline-success btn-sm">Edit</a>
-							<a href="" class="btn btn-outline-info btn-sm">Batch(0)</a>
+							<c:url value="/batches" var="batch">
+								<c:param name="levelId">${lvl.id}</c:param>
+							</c:url>
+							<a href="${batch}" class="btn btn-outline-info btn-sm">Batch(${lvl.totalBatch})</a>
+							
+							<c:url value="/courses" var="course">
+								<c:param name="levelId">${lvl.id}</c:param>
+							</c:url>
+							<a href="${course}" class="btn btn-outline-secondary btn-sm">Course(${lvl.totalCourse})</a>
 						</td>
 					</tr>
 				</c:forEach>

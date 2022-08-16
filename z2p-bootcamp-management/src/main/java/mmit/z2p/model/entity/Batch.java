@@ -12,6 +12,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "batches")
 @NamedQuery(name = "getAllBatch", query = "SELECT b FROM Batch b ORDER BY b.level.id")
+@NamedQuery(name = "getBatchByLevelId", query = "SELECT b FROM Batch b WHERE b.level.id = :levelId")
 public class Batch implements Serializable {
 
 	@Id

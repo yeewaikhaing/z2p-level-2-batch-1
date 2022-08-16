@@ -15,6 +15,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 @Entity
 @Table(name = "courses")
 @NamedQuery(name = "getAllCourse", query = "SELECT c FROM Course c ORDER BY c.level.id")
+@NamedQuery(name = "getCourseByLevelId", query= "SELECT  c FROM Course c WHERE c.level.id = :levelId")
 public class Course implements Serializable {
 
 	@Id

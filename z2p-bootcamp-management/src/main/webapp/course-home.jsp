@@ -38,15 +38,31 @@
 						<td>${course.name}</td>
 						<td>${course.level.name}</td>
 						<td>${course.created_at}</td>
-						<th>${course.updated_at}</th>
+						<td>${course.updated_at}</td>
 						<td>
-							
+							<c:url var="edit" value="/edit-course">
+								<c:param name="id">${course.id}</c:param>
+							</c:url>
+							<a href="${edit}" class="btn btn-outline-info btn-sm">Edit</a>
+							<a href="#" class="btn btn-outline-danger btn-sm btn-remove" data-id="${course.id}">
+							<i class="fa-solid fa-minus"></i> Remove</a>
 						</td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
 	</div>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('.btn-remove').click(function() {
+				let levelId = $(this).data('id');
+				//alert($(this).data('id'));
+				if(confirm('Are you sure to delete?')) {
+					window.location.href="delete-course?id=" + levelId;
+				}
+			});
+		});
+	</script>
 	<!-- footer -->
 	<jsp:include page="common/footer.jsp"></jsp:include>
 </body>

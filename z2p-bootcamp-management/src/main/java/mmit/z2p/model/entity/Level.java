@@ -1,6 +1,9 @@
 package mmit.z2p.model.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.*;
 
 /**
@@ -19,11 +22,22 @@ public class Level implements Serializable {
 	private int duration;
 	private int fees;
 	private static final long serialVersionUID = 1L;
-
+	@OneToMany(mappedBy = "level")
+	private List<Batch> batches = new ArrayList<Batch>();
+	@OneToMany(mappedBy = "level")
+	private List<Course> courses = new ArrayList<Course>();
+	
 	public Level() {
 		super();
 	}
 
+	public int getTotalBatch() { // totalBatch
+		return batches.size();
+	}
+	
+	public int getTotalCourse() {
+		return courses.size();
+	}
 	public int getId() {
 		return id;
 	}

@@ -26,7 +26,8 @@ public class BatchController extends HttpServlet {
     	super.init(config);
     	EntityManagerFactory emf_obj = (EntityManagerFactory) getServletContext().getAttribute("emf");
 		if(emf_obj == null) {
-			emf_obj = Persistence.createEntityManagerFactory("z2p");
+			emf_obj = Persistence.createEntityManagerFactory("z2p" );
+			
 			getServletContext().setAttribute("emf", emf_obj);
 		}
 		batchService = new BatchService(emf_obj.createEntityManager());
@@ -65,8 +66,8 @@ public class BatchController extends HttpServlet {
 		
 	}
 	private void goHomePage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		var list = batchService.findAll();
+		var levelId = request.getParameter("levelId"); // null if it comes from batch link
+		var list = levelId == null ? batchService.findAll() : batchService.findByLevelId(Integer.parseInt(levelId));
 		request.setAttribute("title", "Batch");
 		request.setAttribute("batches", list);
 		getServletContext().getRequestDispatcher("/batch-home.jsp").forward(request, response);

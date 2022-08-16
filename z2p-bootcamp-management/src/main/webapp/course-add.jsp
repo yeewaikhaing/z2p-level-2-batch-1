@@ -37,7 +37,7 @@
 			</div>
 			<div class="mb-3">
 				<label class="form-label">Content</label>
-				<textarea class="form-control" id="summernote">${course.content}</textarea>
+				<textarea class="form-control" id="summernote" name="outline">${course.content}</textarea>
 			</div>
 			<div class="mb-3">
 				<button class="btn btn-success" type="submit">Save</button>
