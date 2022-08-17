@@ -6,13 +6,16 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 /**
  * Entity implementation class for Entity: Level
  *
  */
 @Entity
 @Table(name = "levels")
-@NamedQuery(name = "getAllLevel", query = "SELECT l FROM Level l")
+@NamedQuery(name = "getAllLevel", query = "SELECT l FROM Level l ")
 public class Level implements Serializable {
 
 	@Id

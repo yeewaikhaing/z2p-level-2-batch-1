@@ -26,9 +26,16 @@ public class LevelService {
 	}
 
 	public List<Level> findAll() {
+		//em.clear();
+		
 		TypedQuery<Level> query = em.createNamedQuery("getAllLevel", Level.class);
 		
+		
 		List<Level> list = query.getResultList();
+		for(var l: list) {
+			em.refresh(l);
+		}
+		
 		
 		return list;
 	}

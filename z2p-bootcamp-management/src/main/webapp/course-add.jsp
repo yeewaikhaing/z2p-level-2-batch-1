@@ -33,7 +33,7 @@
 			</div>
 			<div class="mb-3">
 				<label class="form-label">Name</label>
-				<input value="${course.name}" type="text" name="name" class="form-control" required="required" placeholder="Enter Course name"/>
+				<input id="name" value="${course.name}" type="text" name="name" class="form-control" placeholder="Enter Course name"/>
 			</div>
 			<div class="mb-3">
 				<label class="form-label">Content</label>
@@ -48,6 +48,15 @@
 	<script>
 		$(document).ready(function() {
 			$('#summernote').summernote();
+
+			$('.form').submit(function(event) {
+				 let name = $('#name').val();
+				if(name == "") {
+					alert("Please fill course name");
+					event.preventDefault(); 
+				} 
+				
+			});
 		});
 	</script>
 	<!-- footer -->
