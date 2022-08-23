@@ -1,0 +1,5 @@
+${user.locations}
+ - just expression ( retrieve only)
+ 
+ #{}
+ 	- getter/setter
