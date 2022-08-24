@@ -6,7 +6,9 @@ import java.util.List;
 import com.mmit.entities.Employee;
 
 import jakarta.annotation.PostConstruct;
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.context.RequestScoped;
+import jakarta.enterprise.inject.Produces;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
@@ -16,9 +18,12 @@ public class EmployeeBean {
 
 	private Employee employee;
 	
-	@Inject
-	private EmployeeListBean listBean;
+	//@Inject
+	//private EmployeeListBean listBean;
 	
+	@Inject
+	@Named("empList")
+	private List<Employee> list;
 
 	public EmployeeBean() {
 		employee = new Employee();
@@ -27,13 +32,19 @@ public class EmployeeBean {
 	
 	
 	public String save() {
-		listBean.getEmployees().add(employee);
+		//listBean.getEmployees().add(employee);
 		
+		list.add(employee);
 		return "/index?faces-redirect=true";
 	}
 	
 	
-
+	@Produces
+	@Named("empList")
+	@ApplicationScoped
+	public List<Employee> getEmployees() { // employees
+		return new ArrayList<Employee>();
+	}
 
 	public Employee getEmployee() {
 		return employee;

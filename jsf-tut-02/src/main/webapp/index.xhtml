@@ -20,7 +20,7 @@
 			<h2 class="col-11">Employee List</h2>
 			<h:link outcome="/register" value="Add" styleClass="btn btn-info col"/>
 		</div>
-		<h:dataTable binding="#{tbl}" styleClass="table" value="#{employeeListBean.employees}" var="emp">
+		<h:dataTable binding="#{tbl}" styleClass="table" value="#{empList}" var="emp">
 			<h:column>
 				<f:facet name="header">ID</f:facet>
 				#{tbl.rowIndex + 1}
