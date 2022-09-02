@@ -5,8 +5,17 @@
     <artifactId>jsf-maven-project</artifactId>
     <version>1.0</version>
   </parent>
-  <groupId>com.mmit</groupId>
   <artifactId>jsf-bootcamp-management</artifactId>
-  <version>1.0</version>
   <packaging>war</packaging>
+  
+  <build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>3.2.2</version>
+			</plugin>
+		</plugins>
+		<finalName>${project.artifactId}</finalName>
+	</build>
 </project>
