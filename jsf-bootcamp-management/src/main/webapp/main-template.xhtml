@@ -37,16 +37,16 @@
 				<hr />
 				<ul class="nav flex-column">
 				  <li class="nav-item">
-				    <h:link outcome="/index" styleClass="nav-link active" value="Level"/>
+				    <h:link outcome="/index" styleClass="nav-link #{view.viewId eq '/index.xhtml' or view.viewId eq '/level-add.xhtml' ? 'active' : ''}" value="Level"/>
 				  </li>
 				  <li class="nav-item">
-				    <h:link outcome="/batch-list" styleClass="nav-link" value="Batch"/>
+				    <h:link outcome="/batch-list" styleClass="nav-link #{view.viewId eq '/batch-list.xhtml' or view.viewId eq '/batch-add.xhtml' ? 'active' : ''}" value="Batch"/>
 				  </li>
 				  <li class="nav-item">
-				    <h:link outcome="/course-list" styleClass="nav-link" value="Course"/>
+				    <h:link outcome="/course-list" styleClass="nav-link " value="Course"/>
 				  </li>
 				  <li class="nav-item">
-				    <h:link outcome="/bootcamper-list" styleClass="nav-link" value="Bootcamper"/>
+				    <h:link outcome="/bootcamper-list" styleClass="nav-link #{view.viewId eq '/bootcamper-list.xhtml' or view.viewId eq '/bootcamp-add.xhtml' ? 'active' : ''}" value="Bootcamper"/>
 				  </li>
 				</ul>
 			</div>

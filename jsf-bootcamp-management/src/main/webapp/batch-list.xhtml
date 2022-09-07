@@ -9,7 +9,8 @@
 		<ui:define name="title">Batch|Home</ui:define>
 		<ui:define name="sub-title">Batch List</ui:define>
 		<ui:define name="add-link">
-			<h:link outcome="/batch-add" value="Add" styleClass="btn btn-info col-1"/>
+			 <h:link outcome="/batch-list.xhtml" value="Add" styleClass="btn btn-info col-1"/>
+			
 		</ui:define>
 		<ui:define name="contents">
 			<h:dataTable value="#{batchBean.batches}" var="b" styleClass="table" binding="#{tbl}">

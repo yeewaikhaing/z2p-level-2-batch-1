@@ -24,6 +24,7 @@ public class Level implements Serializable {
 	private int fees;
 	private static final long serialVersionUID = 1L;
 	@OneToMany(mappedBy = "level")
+	
 	private List<Batch> batches = new ArrayList<Batch>();
 	@OneToMany(mappedBy = "level")
 	private List<Course> courses = new ArrayList<Course>();

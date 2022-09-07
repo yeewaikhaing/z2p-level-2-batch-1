@@ -12,6 +12,8 @@ import jakarta.persistence.*;
  */
 @Entity
 @Table(name = "bootcampers")
+@NamedQuery(name = "findAllBootcampers", query = "SELECT b FROM Bootcamper b")
+
 public class Bootcamper implements Serializable {
 
 	
